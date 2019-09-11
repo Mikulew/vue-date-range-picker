@@ -18,7 +18,7 @@ export default {
       price: 298,
       rating: {
         all: 123,
-        star: 4.5
+        stars: 4.5
       }
     };
   },
