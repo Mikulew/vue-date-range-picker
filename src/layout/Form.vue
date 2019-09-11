@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import ProductPrice from "./product/ProductPrice";
-import ProductRating from "./product/ProductRating";
+import ProductPrice from "../components/product/ProductPrice";
+import ProductRating from "../components/product/ProductRating";
 
 export default {
   name: "Form",
