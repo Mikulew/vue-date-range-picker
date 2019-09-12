@@ -8,7 +8,10 @@
     </div>
     <div class="calendar-days">
       <div :style="{width: weekStart + 'px'}"></div>
-      <div class="calendar-day" v-for="day in days" :key="day">{{ day }}</div>
+      <div class="calendar-day" v-for="day in days" :key="day">
+        <span class="calendar-day__text">{{ day }}</span>
+        <span class="calendar-day__effect"></span>
+      </div>
     </div>
   </div>
 </template>
@@ -99,6 +102,7 @@ export default {
   height: 215px;
 }
 .calendar-day {
+  position: relative;
   color: #cdcdcd;
   font-size: 12px;
   line-height: 12px;
@@ -106,5 +110,30 @@ export default {
   height: 35px;
   text-align: center;
   padding: 5px;
+  cursor: pointer;
+}
+.calendar-day:hover {
+  color: #ffffff;
+}
+.calendar-day:hover .calendar-day__effect {
+  transform: scale(1);
+  opacity: 1;
+}
+.calendar-day__text {
+  position: relative;
+  z-index: 15;
+}
+.calendar-day__effect {
+  position: absolute;
+  background-color: #00dbb1;
+  border-radius: 50%;
+  top: -4px;
+  left: 8px;
+  width: 30px;
+  height: 30px;
+  transform: scale(0);
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  opacity: 0;
+  z-index: 10;
 }
 </style>
