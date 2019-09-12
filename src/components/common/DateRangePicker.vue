@@ -1,33 +1,28 @@
 <template>
-  <div>
-    <input type="text" :value="dateFormatted" />
-    <input type="text" :value="dateFormatted" />
+  <div class="datepicker-container">
+    <DatePicker :timestamp="timestamp" name="start"></DatePicker>
+    <DatePicker name="end"></DatePicker>
   </div>
 </template>
 
 <script>
-import moment from "moment";
+import DatePicker from "./DatePicker";
 
 export default {
   props: {
-    value: {
-      type: String,
+    timestamp: {
+      type: Number,
       required: true
-    },
-    format: {
-      type: String,
-      default: "YYYY-MM-DD"
     }
   },
-  data() {
-    return {
-      date: moment(this.value, this.format)
-    };
-  },
-  computed: {
-    dateFormatted() {
-      return this.date.format(this.format);
-    }
+  components: {
+    DatePicker
   }
 };
 </script>
+
+<style>
+.daterangepicker-container {
+  display: flex;
+}
+</style>

@@ -3,7 +3,7 @@
     <form class="form">
       <ProductPrice :price="price" />
       <ProductRating :rating="rating" />
-      <DateRangePicker value="2019-09-11"></DateRangePicker>
+      <DateRangePicker :timestamp="dateFromNow"></DateRangePicker>
     </form>
   </div>
 </template>
@@ -24,6 +24,11 @@ export default {
       }
     };
   },
+  computed: {
+    dateFromNow() {
+      return Date.now() / 1000;
+    }
+  },
   components: {
     ProductPrice,
     ProductRating,
@@ -41,7 +46,7 @@ export default {
   height: 100vh;
 }
 .form {
-  width: 25%;
+  width: 40%;
   height: 300px;
   margin-top: 50px;
   padding: 20px;
