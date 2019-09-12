@@ -8,7 +8,7 @@
     </div>
     <div class="calendar-days">
       <div :style="{width: weekStart + 'px'}"></div>
-      <div class="calendar-day" v-for="day in days" :key="day">
+      <div class="calendar-day" :class="{selected: isSelected(day)}" v-for="day in days" :key="day">
         <span class="calendar-day__text">{{ day }}</span>
         <span class="calendar-day__effect"></span>
       </div>
@@ -49,12 +49,20 @@ export default {
         moment.unix(this.initDate).year()
       );
     },
+    today() {
+      return moment.unix(this.initDate).date();
+    },
     days() {
       return this.month.getDays();
     },
     weekStart() {
       const weekStart = this.month.getWeekStart();
       return weekStart ? weekStart * 45 : 0;
+    }
+  },
+  methods: {
+    isSelected(day) {
+      return Number(day) === this.today;
     }
   }
 };
@@ -112,10 +120,12 @@ export default {
   padding: 5px;
   cursor: pointer;
 }
-.calendar-day:hover {
+.calendar-day:hover,
+.calendar-day.selected {
   color: #ffffff;
 }
-.calendar-day:hover .calendar-day__effect {
+.calendar-day:hover .calendar-day__effect,
+.calendar-day.selected .calendar-day__effect {
   transform: scale(1);
   opacity: 1;
 }
