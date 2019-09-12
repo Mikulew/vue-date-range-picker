@@ -3,6 +3,7 @@
     <form class="form">
       <ProductPrice :price="price" />
       <ProductRating :rating="rating" />
+      <DateRangePicker value="2019-09-11"></DateRangePicker>
     </form>
   </div>
 </template>
@@ -10,6 +11,7 @@
 <script>
 import ProductPrice from "../components/product/ProductPrice";
 import ProductRating from "../components/product/ProductRating";
+import DateRangePicker from "../components/common/DateRangePicker";
 
 export default {
   name: "Form",
@@ -24,7 +26,8 @@ export default {
   },
   components: {
     ProductPrice,
-    ProductRating
+    ProductRating,
+    DateRangePicker
   }
 };
 </script>
