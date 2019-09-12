@@ -1,13 +1,12 @@
 <template>
   <div class="datepicker-container">
     <input type="text" :value="text" />
-    <Calendar></Calendar>
+    <Calendar :timestamp="timestamp"></Calendar>
   </div>
 </template>
 
 <script>
 import Calendar from "./Calendar";
-import moment from "moment";
 
 export default {
   name: "DatePicker",
@@ -34,5 +33,6 @@ export default {
 <style scoped>
 .datepicker-container {
   display: inline-block;
+  position: relative;
 }
 </style>
