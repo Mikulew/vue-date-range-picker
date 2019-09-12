@@ -1,6 +1,6 @@
 <template>
   <div class="datepicker-container">
-    <input type="text" :value="dateInputFormatted" />
+    <input type="text" :value="text" />
     <Calendar></Calendar>
   </div>
 </template>
@@ -16,17 +16,13 @@ export default {
       type: Number,
       required: false
     },
+    text: {
+      type: String,
+      default: "Choose date"
+    },
     format: {
       type: String,
       default: "DD-MM-YYYY"
-    }
-  },
-  computed: {
-    dateInputFormatted() {
-      if (!this.timestamp) {
-        return "Choose date";
-      }
-      return moment.unix(this.timestamp).format(this.format);
     }
   },
   components: {
