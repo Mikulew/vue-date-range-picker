@@ -120,14 +120,27 @@ export default {
   padding: 5px;
   cursor: pointer;
 }
-.calendar-day:hover,
-.calendar-day.selected {
-  color: #ffffff;
+.calendar-day:hover {
+  color: #00dbb1;
 }
+
 .calendar-day:hover .calendar-day__effect,
 .calendar-day.selected .calendar-day__effect {
   transform: scale(1);
   opacity: 1;
+}
+.calendar-day:hover .calendar-day__effect {
+  background-color: #ffffff;
+  border: 2px #00dbb1 solid;
+}
+.calendar-day:hover .calendar-day__text {
+  color: #00dbb1;
+}
+.calendar-day.selected .calendar-day__effect {
+  background-color: #00dbb1;
+}
+.calendar-day.selected .calendar-day__text {
+  color: #ffffff;
 }
 .calendar-day__text {
   position: relative;
@@ -135,10 +148,10 @@ export default {
 }
 .calendar-day__effect {
   position: absolute;
-  background-color: #00dbb1;
   border-radius: 50%;
-  top: -4px;
-  left: 8px;
+  border: 2px transparent solid;
+  top: -6px;
+  left: 6px;
   width: 30px;
   height: 30px;
   transform: scale(0);
