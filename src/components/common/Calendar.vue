@@ -4,14 +4,17 @@
       <div class="calendar-date">{{ headerDate }}</div>
     </div>
     <div class="calendar-week">
-      <div v-for="day in days" :key="day" class="calendar-weekday">
-        {{ day }}
-      </div>
+      <div v-for="dayName in daysName" :key="dayName" class="calendar-weekday">{{ dayName }}</div>
+    </div>
+    <div class="calendar-days">
+      <div :style="{width: weekStart + 'px'}"></div>
+      <div class="calendar-day" v-for="day in days" :key="day">{{ day }}</div>
     </div>
   </div>
 </template>
 
 <script>
+import Month from "../../modules/month.js";
 import moment from "moment";
 
 export default {
@@ -23,19 +26,32 @@ export default {
   },
   data() {
     return {
-      days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+      daysName: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     };
   },
   computed: {
     initDate() {
       if (!this.timestamp) {
-        return moment().format();
+        return moment().unix();
       }
 
-      return moment.unix(this.timestamp).format();
+      return this.timestamp;
     },
     headerDate() {
-      return moment(this.initDate).format("MMMM YYYY");
+      return moment.unix(this.initDate).format("MMMM YYYY");
+    },
+    month() {
+      return new Month(
+        moment.unix(this.initDate).month(),
+        moment.unix(this.initDate).year()
+      );
+    },
+    days() {
+      return this.month.getDays();
+    },
+    weekStart() {
+      const weekStart = this.month.getWeekStart();
+      return weekStart ? weekStart * 45 : 0;
     }
   }
 };
@@ -46,7 +62,7 @@ export default {
   position: absolute;
   top: 100%;
   background-color: #ffffff;
-  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.25), 0 10px 18px rgba(0, 0, 0, 0.22);
+  border: 1px #d7d7d7 solid;
   height: 315px;
   width: 315px;
   z-index: 5;
@@ -70,9 +86,25 @@ export default {
   font-size: 12px;
   font-weight: 700;
   line-height: 12px;
-  padding: 20px;
+  padding: 20px 10px;
 }
 .calendar-weekday {
   color: #cdcdcd;
+}
+.calendar-days {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 215px;
+}
+.calendar-day {
+  color: #cdcdcd;
+  font-size: 12px;
+  line-height: 12px;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  padding: 5px;
 }
 </style>

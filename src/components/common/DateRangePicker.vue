@@ -1,7 +1,6 @@
 <template>
   <div class="datepicker-container">
-    <DatePicker :timestamp="timestamp" text="Check In" name="start">
-    </DatePicker>
+    <DatePicker :timestamp="timestamp" text="Check In" name="start"></DatePicker>
     <DatePicker name="end" text="Check Out"></DatePicker>
   </div>
 </template>
