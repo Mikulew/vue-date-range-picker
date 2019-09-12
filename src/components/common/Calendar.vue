@@ -8,7 +8,13 @@
     </div>
     <div class="calendar-days">
       <div :style="{width: weekStart + 'px'}"></div>
-      <div class="calendar-day" :class="{selected: isSelected(day)}" v-for="day in days" :key="day">
+      <div
+        class="calendar-day"
+        :class="{selected: isSelected(day)}"
+        v-for="day in days"
+        :key="day"
+        @click="selectDate(day)"
+      >
         <span class="calendar-day__text">{{ day }}</span>
         <span class="calendar-day__effect"></span>
       </div>
@@ -29,16 +35,22 @@ export default {
   },
   data() {
     return {
-      daysName: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+      daysName: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      currentTimestamp: this.timestamp
     };
   },
   computed: {
-    initDate() {
-      if (!this.timestamp) {
-        return moment().unix();
-      }
+    initDate: {
+      get() {
+        if (!this.currentTimestamp) {
+          return moment().unix();
+        }
 
-      return this.timestamp;
+        return this.currentTimestamp;
+      },
+      set(newValue) {
+        return (this.currentTimestamp = newValue);
+      }
     },
     headerDate() {
       return moment.unix(this.initDate).format("MMMM YYYY");
@@ -63,6 +75,14 @@ export default {
   methods: {
     isSelected(day) {
       return Number(day) === this.today;
+    },
+    selectDate(day) {
+      const currentTimestamp = moment({
+        year: moment.unix(this.initDate).year(),
+        month: moment.unix(this.initDate).month(),
+        day
+      }).unix();
+      this.initDate = currentTimestamp;
     }
   }
 };
