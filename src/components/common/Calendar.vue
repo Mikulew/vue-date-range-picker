@@ -1,45 +1,50 @@
 <template>
-  <div class="calendar-container">
-    <div class="calendar-header">
-      <div class="calendar-controls">
-        <div class="calendar-controls__prev" @click="prevMonth()">
-          <img
-            class="calendar-controls-icon"
-            alt="Left arrow icon"
-            src="../../assets/left-arrow.svg"
-          />
+  <transition name="calendar-slide">
+    <div class="calendar-container" v-if="visible">
+      <div class="calendar-header">
+        <div class="calendar-controls">
+          <div class="calendar-controls__prev" @click="prevMonth()">
+            <img
+              class="calendar-controls-icon"
+              alt="Left arrow icon"
+              src="../../assets/left-arrow.svg"
+            />
+          </div>
+          <div class="calendar-controls__next" @click="nextMonth()">
+            <img
+              class="calendar-controls-icon"
+              alt="Right arrow icon"
+              src="../../assets/right-arrow.svg"
+            />
+          </div>
         </div>
-        <div class="calendar-controls__next" @click="nextMonth()">
-          <img
-            class="calendar-controls-icon"
-            alt="Right arrow icon"
-            src="../../assets/right-arrow.svg"
-          />
+        <div class="calendar-date">{{ headerDate }}</div>
+      </div>
+      <div class="calendar-week">
+        <div v-for="dayName in daysName" :key="dayName" class="calendar-weekday">{{ dayName }}</div>
+      </div>
+      <div class="calendar-days">
+        <div :style="{width: weekStart + 'px'}"></div>
+        <div
+          class="calendar-day"
+          :class="{selected: isSelected(day)}"
+          v-for="day in days"
+          :key="day"
+          @click="selectDate(day)"
+        >
+          <span class="calendar-day__text">{{ day }}</span>
+          <span class="calendar-day__effect"></span>
         </div>
       </div>
-      <div class="calendar-date">{{ headerDate }}</div>
-    </div>
-    <div class="calendar-week">
-      <div v-for="dayName in daysName" :key="dayName" class="calendar-weekday">{{ dayName }}</div>
-    </div>
-    <div class="calendar-days">
-      <div :style="{width: weekStart + 'px'}"></div>
-      <div
-        class="calendar-day"
-        :class="{selected: isSelected(day)}"
-        v-for="day in days"
-        :key="day"
-        @click="selectDate(day)"
-      >
-        <span class="calendar-day__text">{{ day }}</span>
-        <span class="calendar-day__effect"></span>
+      <div class="calendar-actions">
+        <button class="calendar-button calendar-button__submit" @click.prevent="submitDate">Submit</button>
+        <button
+          class="calendar-button calendar-button__cancel"
+          @click.prevent="closeCalendar"
+        >Cancel</button>
       </div>
     </div>
-    <div class="calendar-actions">
-      <button class="calendar-button calendar-button__submit" @click.prevent="submitDate">Submit</button>
-      <button class="calendar-button calendar-button__cancel" @click.prevent="closeCalendar">Cancel</button>
-    </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -59,6 +64,10 @@ export default {
     text: {
       type: String,
       required: true
+    },
+    visible: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -158,11 +167,12 @@ export default {
       this.$emit("changeText", moment.unix(timestamp).format(this.format));
     },
     closeCalendar() {
-      this.$emit("closeCalendar", false);
       this.$emit("changeText", this.defaultText);
+      this.$emit("closeCalendar");
     },
     submitDate() {
-      this.$emit("closeCalendar", false);
+      this.$emit("submitDate", this.selectedDate);
+      this.$emit("closeCalendar");
     }
   }
 };
@@ -279,24 +289,40 @@ export default {
 }
 .calendar-actions {
   padding: 0 0 15px 15px;
+  text-align: right;
 }
 .calendar-button {
-  padding: 5px 10px;
+  padding: 10px 15px;
   margin-right: 10px;
   border: none;
   cursor: pointer;
   transition: all 750ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 }
 .calendar-button__submit {
-  background-color: #00dbb1;
+  color: #00dbb1;
+  background-color: #ffffff;
 }
 .calendar-button__submit:hover {
+  color: #ffffff;
   background-color: #00c59f;
 }
 .calendar-button__cancel {
-  background-color: #d7d7d7;
+  color: #00dbb1;
+  background-color: #ffffff;
 }
 .calendar-button__cancel:hover {
-  background-color: #c1c1c1;
+  color: #ffffff;
+  background-color: #d7d7d7;
+}
+.calendar-slide-enter-active,
+.calendar-slide-leave-active {
+  opacity: 1;
+  transition: all 0.3s;
+  transform: translateY(0);
+}
+.calendar-slide-leave-to,
+.calendar-slide-enter {
+  opacity: 0;
+  transform: translateY(-50px);
 }
 </style>

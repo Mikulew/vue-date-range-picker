@@ -5,8 +5,9 @@
       :timestamp="timestamp"
       :format="format"
       @changeText="changeText"
-      @closeCalendar="closeCalendar"
-      v-show="isOpen"
+      @submitDate="changeDate"
+      @closeCalendar="closeCalender"
+      :visible="isVisible"
       :text="text"
     ></Calendar>
   </div>
@@ -34,18 +35,21 @@ export default {
   data() {
     return {
       currentText: this.text,
-      isOpen: false
+      isVisible: false
     };
   },
   methods: {
     changeText(text) {
       return (this.currentText = text);
     },
-    openCalender() {
-      this.isOpen = true;
+    changeDate(timestamp) {
+      this.$emit("changeDate", timestamp);
     },
-    closeCalendar(value) {
-      this.isOpen = value;
+    openCalender() {
+      this.isVisible = true;
+    },
+    closeCalender() {
+      this.isVisible = false;
     }
   },
   components: {
