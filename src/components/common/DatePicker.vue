@@ -1,6 +1,6 @@
 <template>
   <div class="datepicker-container">
-    <input type="text" :value="currentText" @click="openCalender" />
+    <button class="datepicker-button" @click.prevent="openCalender">{{ currentText }}</button>
     <Calendar
       :timestamp="timestamp"
       :format="format"
@@ -62,5 +62,15 @@ export default {
 .datepicker-container {
   display: inline-block;
   position: relative;
+}
+.datepicker-button {
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 70px 5px 10px;
+}
+.datepicker-button:hover {
+  background-color: #00dbb1;
 }
 </style>
