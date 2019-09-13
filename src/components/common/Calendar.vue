@@ -31,6 +31,10 @@ export default {
     timestamp: {
       type: Number,
       required: false
+    },
+    format: {
+      type: String,
+      default: "DD-MM-YYYY"
     }
   },
   data() {
@@ -83,6 +87,7 @@ export default {
         day
       }).unix();
       this.initDate = currentTimestamp;
+      this.$emit("changeText", moment.unix(currentTimestamp).format(this.format));
     }
   }
 };

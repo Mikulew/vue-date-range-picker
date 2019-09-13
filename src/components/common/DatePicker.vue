@@ -1,7 +1,7 @@
 <template>
   <div class="datepicker-container">
-    <input type="text" :value="text" />
-    <Calendar :timestamp="timestamp"></Calendar>
+    <input type="text" :value="currentText" />
+    <Calendar :timestamp="timestamp" :format="format" @changeText="changeText"></Calendar>
   </div>
 </template>
 
@@ -22,6 +22,16 @@ export default {
     format: {
       type: String,
       default: "DD-MM-YYYY"
+    }
+  },
+  data() {
+    return {
+      currentText: this.text
+    };
+  },
+  methods: {
+    changeText(text) {
+      return (this.currentText = text);
     }
   },
   components: {
