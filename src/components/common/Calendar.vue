@@ -35,6 +35,10 @@
         <span class="calendar-day__effect"></span>
       </div>
     </div>
+    <div class="calendar-actions">
+      <button class="calendar-button calendar-button__submit" @click.prevent="submitDate">Submit</button>
+      <button class="calendar-button calendar-button__cancel" @click.prevent="closeCalendar">Cancel</button>
+    </div>
   </div>
 </template>
 
@@ -51,12 +55,17 @@ export default {
     format: {
       type: String,
       default: "DD-MM-YYYY"
+    },
+    text: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
       daysName: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
       currentTimestamp: this.timestamp,
+      defaultText: this.text,
       selectedDate: this.timestamp,
       selectedDay: this.today
     };
@@ -147,6 +156,13 @@ export default {
     },
     changeText(timestamp) {
       this.$emit("changeText", moment.unix(timestamp).format(this.format));
+    },
+    closeCalendar() {
+      this.$emit("closeCalendar", false);
+      this.$emit("changeText", this.defaultText);
+    },
+    submitDate() {
+      this.$emit("closeCalendar", false);
     }
   }
 };
@@ -158,7 +174,7 @@ export default {
   top: 100%;
   background-color: #ffffff;
   border: 1px #d7d7d7 solid;
-  height: 360px;
+  min-height: 360px;
   width: 315px;
   z-index: 5;
 }
@@ -192,7 +208,7 @@ export default {
   flex-flow: row wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  height: 260px;
+  min-height: 260px;
 }
 .calendar-day {
   position: relative;
@@ -260,5 +276,27 @@ export default {
   width: 15px;
   height: 15px;
   cursor: pointer;
+}
+.calendar-actions {
+  padding: 0 0 15px 15px;
+}
+.calendar-button {
+  padding: 5px 10px;
+  margin-right: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 750ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+}
+.calendar-button__submit {
+  background-color: #00dbb1;
+}
+.calendar-button__submit:hover {
+  background-color: #00c59f;
+}
+.calendar-button__cancel {
+  background-color: #d7d7d7;
+}
+.calendar-button__cancel:hover {
+  background-color: #c1c1c1;
 }
 </style>

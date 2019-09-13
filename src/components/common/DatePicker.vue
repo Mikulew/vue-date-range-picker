@@ -1,7 +1,14 @@
 <template>
   <div class="datepicker-container">
-    <input type="text" :value="currentText" />
-    <Calendar :timestamp="timestamp" :format="format" @changeText="changeText"></Calendar>
+    <input type="text" :value="currentText" @click="openCalender" />
+    <Calendar
+      :timestamp="timestamp"
+      :format="format"
+      @changeText="changeText"
+      @closeCalendar="closeCalendar"
+      v-show="isOpen"
+      :text="text"
+    ></Calendar>
   </div>
 </template>
 
@@ -26,12 +33,19 @@ export default {
   },
   data() {
     return {
-      currentText: this.text
+      currentText: this.text,
+      isOpen: false
     };
   },
   methods: {
     changeText(text) {
       return (this.currentText = text);
+    },
+    openCalender() {
+      this.isOpen = true;
+    },
+    closeCalendar(value) {
+      this.isOpen = value;
     }
   },
   components: {
