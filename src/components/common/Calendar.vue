@@ -1,5 +1,5 @@
 <template>
-  <transition name="calendar-slide">
+  <transition name="animation-slide">
     <div class="calendar-container" v-if="visible">
       <div class="calendar-header">
         <div class="calendar-controls">
@@ -315,14 +315,14 @@ export default {
   color: #ffffff;
   background-color: #d7d7d7;
 }
-.calendar-slide-enter-active,
-.calendar-slide-leave-active {
+.animation-slide-enter-active,
+.animation-slide-leave-active {
   opacity: 1;
   transition: all 0.3s;
   transform: translateY(0);
 }
-.calendar-slide-leave-to,
-.calendar-slide-enter {
+.animation-slide-leave-to,
+.animation-slide-enter {
   opacity: 0;
   transform: translateY(-50px);
 }
