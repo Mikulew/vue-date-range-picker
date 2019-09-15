@@ -18,7 +18,9 @@
             />
           </div>
         </div>
-        <div class="calendar-date">{{ headerDate }}</div>
+        <transition name="animation-date">
+          <div class="calendar-date" :key="dateKeyValue">{{ headerDate }}</div>
+        </transition>
       </div>
       <div class="calendar-week">
         <div v-for="dayName in daysName" :key="dayName" class="calendar-weekday">{{ dayName }}</div>
@@ -76,7 +78,8 @@ export default {
       currentTimestamp: this.timestamp,
       defaultText: this.text,
       selectedDate: this.timestamp,
-      selectedDay: this.today
+      selectedDay: this.today,
+      dateKeyValue: false
     };
   },
   computed: {
@@ -146,6 +149,7 @@ export default {
       }).unix();
       this.initDate = timestamp;
       this.changeText(timestamp);
+      this.dateKeyValue = !this.dateKeyValue;
     },
     nextMonth() {
       let month = this.month.month + 1;
@@ -162,6 +166,7 @@ export default {
       }).unix();
       this.initDate = timestamp;
       this.changeText(timestamp);
+      this.dateKeyValue = !this.dateKeyValue;
     },
     changeText(timestamp) {
       this.$emit("changeText", moment.unix(timestamp).format(this.format));
@@ -325,5 +330,18 @@ export default {
 .animation-slide-enter {
   opacity: 0;
   transform: translateY(-50px);
+}
+.animation-date-enter-active {
+  opacity: 1;
+  transition: all 0.3s;
+  transform: translateY(0);
+}
+.animation-date-leave-active {
+  display: none;
+}
+.animation-date-leave-to,
+.animation-date-enter {
+  opacity: 0;
+  transform: translateY(-20px);
 }
 </style>
