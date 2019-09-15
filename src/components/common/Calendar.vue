@@ -83,7 +83,7 @@ export default {
       selectedDay: this.today,
       dateKeyValue: false,
       daysKeyValue: false,
-      classDirection: "off"
+      classDirection: ""
     };
   },
   computed: {
@@ -154,8 +154,7 @@ export default {
       }).unix();
       this.initDate = timestamp;
       this.changeText(timestamp);
-      this.dateKeyValue = !this.dateKeyValue;
-      this.daysKeyValue = !this.daysKeyValue;
+      this.animateCalendar();
     },
     nextMonth() {
       this.classDirection = "next";
@@ -173,6 +172,9 @@ export default {
       }).unix();
       this.initDate = timestamp;
       this.changeText(timestamp);
+      this.animateCalendar();
+    },
+    animateCalendar() {
       this.dateKeyValue = !this.dateKeyValue;
       this.daysKeyValue = !this.daysKeyValue;
     },
