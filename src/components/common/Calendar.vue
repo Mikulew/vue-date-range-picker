@@ -19,25 +19,27 @@
           </div>
         </div>
         <transition name="animation-date">
-          <div class="calendar-date" :key="dateKeyValue">{{ headerDate }}</div>
+          <div class="calendar-date" :class="classDirection" :key="dateKeyValue">{{ headerDate }}</div>
         </transition>
       </div>
       <div class="calendar-week">
         <div v-for="dayName in daysName" :key="dayName" class="calendar-weekday">{{ dayName }}</div>
       </div>
-      <div class="calendar-days">
-        <div :style="{width: weekStart + 'px'}"></div>
-        <div
-          class="calendar-day"
-          :class="{selected: isSelected(day)}"
-          v-for="day in days"
-          :key="day"
-          @click="selectDate(day)"
-        >
-          <span class="calendar-day__text">{{ day }}</span>
-          <span class="calendar-day__effect"></span>
+      <transition-group name="animation-days">
+        <div class="calendar-days" :class="classDirection" :key="daysKeyValue">
+          <div :style="{width: weekStart + 'px'}"></div>
+          <div
+            class="calendar-day"
+            :class="{selected: isSelected(day)}"
+            v-for="day in days"
+            :key="day"
+            @click="selectDate(day)"
+          >
+            <span class="calendar-day__text">{{ day }}</span>
+            <span class="calendar-day__effect"></span>
+          </div>
         </div>
-      </div>
+      </transition-group>
       <div class="calendar-actions">
         <button class="calendar-button calendar-button__submit" @click.prevent="submitDate">Submit</button>
         <button
@@ -79,7 +81,9 @@ export default {
       defaultText: this.text,
       selectedDate: this.timestamp,
       selectedDay: this.today,
-      dateKeyValue: false
+      dateKeyValue: false,
+      daysKeyValue: false,
+      classDirection: "off"
     };
   },
   computed: {
@@ -135,6 +139,7 @@ export default {
       this.changeText(currentTimestamp);
     },
     prevMonth() {
+      this.classDirection = "prev";
       let month = this.month.month - 1;
       let year = this.month.year;
       if (month < 0) {
@@ -150,8 +155,10 @@ export default {
       this.initDate = timestamp;
       this.changeText(timestamp);
       this.dateKeyValue = !this.dateKeyValue;
+      this.daysKeyValue = !this.daysKeyValue;
     },
     nextMonth() {
+      this.classDirection = "next";
       let month = this.month.month + 1;
       let year = this.month.year;
       if (month > 11) {
@@ -167,6 +174,7 @@ export default {
       this.initDate = timestamp;
       this.changeText(timestamp);
       this.dateKeyValue = !this.dateKeyValue;
+      this.daysKeyValue = !this.daysKeyValue;
     },
     changeText(timestamp) {
       this.$emit("changeText", moment.unix(timestamp).format(this.format));
@@ -224,6 +232,7 @@ export default {
   justify-content: flex-start;
   align-items: flex-start;
   min-height: 260px;
+  overflow: hidden;
 }
 .calendar-day {
   position: relative;
@@ -342,6 +351,30 @@ export default {
 .animation-date-leave-to,
 .animation-date-enter {
   opacity: 0;
+}
+.calendar-date.next.animation-date-enter {
+  transform: translateY(20px);
+}
+.calendar-date.prev.animation-date-enter {
   transform: translateY(-20px);
+}
+.animation-days-enter-active {
+  opacity: 1;
+  transition: all 0.3s;
+  transform: translateX(0);
+}
+.animation-days-leave-active,
+.animation-days-leave-to {
+  display: none;
+  opacity: 0;
+}
+.animation-days-enter {
+  opacity: 0;
+}
+.calendar-days.next.animation-days-enter {
+  transform: translateX(-150px);
+}
+.calendar-days.prev.animation-days-enter {
+  transform: translateX(150px);
 }
 </style>
