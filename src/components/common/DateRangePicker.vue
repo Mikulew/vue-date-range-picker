@@ -20,7 +20,7 @@ export default {
   props: {
     timestamp: {
       type: Number,
-      required: true
+      required: false
     }
   },
   components: {

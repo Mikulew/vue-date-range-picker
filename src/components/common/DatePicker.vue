@@ -1,12 +1,12 @@
 <template>
   <div class="datepicker-container">
-    <button class="datepicker-button" @click.prevent="openCalender">{{ currentText }}</button>
+    <button class="datepicker-button" @click.prevent="openCalendar">{{ currentText }}</button>
     <Calendar
       :timestamp="timestamp"
       :format="format"
       @changeText="changeText"
       @submitDate="changeDate"
-      @closeCalendar="closeCalender"
+      @closeCalendar="closeCalendar"
       :visible="isVisible"
       :text="text"
     ></Calendar>
@@ -45,10 +45,10 @@ export default {
     changeDate(timestamp) {
       this.$emit("changeDate", timestamp);
     },
-    openCalender() {
+    openCalendar() {
       this.isVisible = true;
     },
-    closeCalender() {
+    closeCalendar() {
       this.isVisible = false;
     }
   },

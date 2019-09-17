@@ -183,6 +183,7 @@ export default {
     },
     closeCalendar() {
       this.$emit("changeText", this.defaultText);
+      this.selectedDate = this.currentTimestamp;
       this.$emit("closeCalendar");
     },
     submitDate() {
