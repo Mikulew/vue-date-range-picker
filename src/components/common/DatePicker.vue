@@ -1,6 +1,8 @@
 <template>
   <div class="datepicker-container">
-    <button class="datepicker-button" @click.prevent="openCalendar">{{ currentText }}</button>
+    <button class="datepicker-button" @click.prevent="openCalendar">
+      {{ currentText }}
+    </button>
     <Calendar
       :timestamp="timestamp"
       :format="format"

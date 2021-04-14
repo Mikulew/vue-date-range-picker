@@ -2,7 +2,11 @@
   <div>
     <p class="daterangepicker-title">Dates</p>
     <div class="daterangepicker-container">
-      <DatePicker :timestamp="timestamp" text="Check In" name="start"></DatePicker>
+      <DatePicker
+        :timestamp="timestamp"
+        text="Check In"
+        name="start"
+      ></DatePicker>
       <img
         class="datarangepicker-icon"
         src="../../assets/arrow-pointing-to-right.svg"

@@ -19,18 +19,30 @@
           </div>
         </div>
         <transition name="animation-date">
-          <div class="calendar-date" :class="classDirection" :key="dateKeyValue">{{ headerDate }}</div>
+          <div
+            class="calendar-date"
+            :class="classDirection"
+            :key="dateKeyValue"
+          >
+            {{ headerDate }}
+          </div>
         </transition>
       </div>
       <div class="calendar-week">
-        <div v-for="dayName in daysName" :key="dayName" class="calendar-weekday">{{ dayName }}</div>
+        <div
+          v-for="dayName in daysName"
+          :key="dayName"
+          class="calendar-weekday"
+        >
+          {{ dayName }}
+        </div>
       </div>
       <transition-group name="animation-days">
         <div class="calendar-days" :class="classDirection" :key="daysKeyValue">
-          <div :style="{width: weekStart + 'px'}"></div>
+          <div :style="{ width: weekStart + 'px' }"></div>
           <div
             class="calendar-day"
-            :class="{selected: isSelected(day)}"
+            :class="{ selected: isSelected(day) }"
             v-for="day in days"
             :key="day"
             @click="selectDate(day)"
@@ -41,11 +53,18 @@
         </div>
       </transition-group>
       <div class="calendar-actions">
-        <button class="calendar-button calendar-button__submit" @click.prevent="submitDate">Submit</button>
+        <button
+          class="calendar-button calendar-button__submit"
+          @click.prevent="submitDate"
+        >
+          Submit
+        </button>
         <button
           class="calendar-button calendar-button__cancel"
           @click.prevent="closeCalendar"
-        >Cancel</button>
+        >
+          Cancel
+        </button>
       </div>
     </div>
   </transition>
