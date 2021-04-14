@@ -1,29 +1,47 @@
-# vue-date-range-picker
+# Table of contents
 
-## Project setup
-```
+- [General info](#general-info)
+- [Technologies](#technologies)
+- [Setup](#setup)
+
+## General info
+
+This project is about to write a calendar from scratch, which has the task of selecting the start and end date.
+## Technologies
+
+- HTML5
+- CSS
+- Vue
+- JavaScript (ES6)
+- npm
+
+## Setup
+
+> To run this project, install it locally using npm
+
+### Development server (compiles and hot-reloads)
+
+```bash
+# install dependencies
 npm install
+
+# serve with hot reload at localhost:8080
+npm run start
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Build setup (development)
 
-### Compiles and minifies for production
-```
+```bash
+# install dependencies
+npm install
+
+# build for production with minification in the "dist" directory
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
+### Demounting setup
 
-### Lints and fixes files
+```bash
+# remove the "dist" directory
+npm run clean
 ```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
