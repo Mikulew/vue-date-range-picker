@@ -6,7 +6,8 @@
 
 ## General info
 
-This project is about to write a calendar from scratch, which has the task of selecting the start and end date.
+This project is a calendar from scratch, which has the task of selecting the start and end date.
+
 ## Technologies
 
 - HTML5
